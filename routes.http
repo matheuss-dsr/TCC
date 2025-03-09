@@ -18,12 +18,12 @@ PUT https://tcc-mr-gg.onrender.com/cursos/8
 Content-Type: application/json
 
 {
+    cursos: [
     "title": "Tchesco",
     "description": "Esse é o nosso curso!",
     "professor":"tiline",
     "duration": 180
-}
-
+]}
 ###
 
 DELETE https://tcc-mr-gg.onrender.com/cursos/6
