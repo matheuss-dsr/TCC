@@ -1,64 +1,65 @@
 import { fastify } from 'fastify'
+import fastifyView from '@fastify/view'
+import ejs from 'ejs'
+import path from 'path'
 import { DatabasePostgres } from './database_postgres.js'
 
-const server = fastify()
+const server = fastify() // 👈 Criando o servidor antes de tudo
+
+// Registrando o EJS
+server.register(fastifyView, {
+    engine: { ejs },
+    root: path.join(process.cwd(), 'views'),
+    layout: false
+})
 
 const database = new DatabasePostgres()
+
+// Rota GET para listar cursos
+server.get('/', async (request, reply) => {
+    const search = request.query.search
+    const cursos = await database.curso_list(search)
+    return reply.view('index.ejs', { cursos, search })
+})
+
+// Rota GET para o formulário de criação
+server.get('/cursos/novo', async (request, reply) => {
+    return reply.view('create.ejs')
+})
 
 // Rota POST para criar um curso
 server.post('/cursos', async (request, reply) => {
     const { title, description, professor, duration } = request.body
-
-    await database.curso_create({
-        title,
-        description,
-        professor,
-        duration,
-    })
-
-    return reply.status(201).send()
+    await database.curso_create({ title, description, professor, duration })
+    return reply.redirect('/cursos')
 })
 
-// Rota GET para listar cursos
-server.get('/cursos', async (request) => {
-    const search = request.query.search
-
-    console.log(search)
-
-    const cursos = await database.curso_list(search) // Passando 'search' para a consulta
-
-    return cursos
+// Rota GET para editar curso
+server.get('/cursos/:curso_id/editar', async (request, reply) => {
+    const cursoID = request.params.curso_id
+    const [curso] = await database.curso_list() // ou uma função específica para pegar por ID
+    return reply.view('edit.ejs', { curso })
 })
 
-// Rota PUT para atualizar um curso
-server.put('/cursos/:curso_id', async (request, reply) => {
+// Rota POST para atualizar curso
+server.post('/cursos/:curso_id', async (request, reply) => {
+    const cursoID = request.params.curso_id
     const { title, description, professor, duration } = request.body
-    const cursoID = request.params.curso_id
-
-
-    await database.curso_update(cursoID, {
-        title,
-        description,
-        professor,
-        duration,
-    })
-
-    return reply.status(204).send() // Sucesso, sem conteúdo
+    await database.curso_update(cursoID, { title, description, professor, duration })
+    return reply.redirect('/cursos')
 })
 
-// Rota DELETE para deletar um curso
-server.delete('/cursos/:curso_id', async (request, reply) => {
+// Rota POST para deletar curso
+server.post('/cursos/:curso_id/delete', async (request, reply) => {
     const cursoID = request.params.curso_id
-
     await database.curso_delete(cursoID)
-
-    return reply.status(204).send() // Sucesso, sem conteúdo
+    return reply.redirect('/cursos')
 })
 
-// Inicia o servidor na porta 3333
+// Inicia o servidor
 server.listen({
     host: '0.0.0.0',
-    port: process.env.PORT ?? 3333,
+    port: process.env.PORT ?? 3333
 }, (err, address) => {
     if (err) {
         console.error(err)

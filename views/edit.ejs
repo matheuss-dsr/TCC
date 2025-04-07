@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Editar Curso</title></head>
+<body>
+    <h1>Editar Curso</h1>
+    <form action="/cursos/<%= curso.curso_id %>" method="post">
+        <input type="text" name="title" value="<%= curso.title %>" required /><br />
+        <input type="text" name="description" value="<%= curso.description %>" required /><br />
+        <input type="text" name="professor" value="<%= curso.professor %>" required /><br />
+        <input type="number" name="duration" value="<%= curso.duration %>" required /><br />
+        <button type="submit">Atualizar</button>
+    </form>
+</body>
+</html>
