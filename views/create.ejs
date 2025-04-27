@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="pt-BR">
+  <head>
     <title>Criar Curso</title>
-</head>
-<body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
     <h1>Criar Curso</h1>
     <form method="POST" action="/cursos">
-        <input type="text" name="title" placeholder="Título" required>
-        <textarea name="description" placeholder="Descrição" required></textarea>
-        <input type="text" name="professor" placeholder="Professor" required>
-        <input type="number" name="duration" placeholder="Duração (horas)" required>
-        <button type="submit">Criar</button>
+      <input type="text" name="title" placeholder="Título" required />
+      <textarea name="description" placeholder="Descrição" required></textarea>
+      <input type="text" name="professor" placeholder="Professor" required />
+      <input
+        type="number"
+        name="duration"
+        placeholder="Duração (horas)"
+        required
+      />
+      <button type="submit">Criar</button>
     </form>
-</body>
+  </body>
 </html>

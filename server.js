@@ -4,8 +4,14 @@ import ejs from 'ejs'
 import path from 'path'
 import { DatabasePostgres } from './database_postgres.js'
 import fastifyFormbody from '@fastify/formbody';
+import fastifyStatic from '@fastify/static';
 
 const server = fastify() //
+
+server.register(fastifyStatic, {
+    root: path.join(process.cwd(), 'static'),
+    prefix: '/static/',
+});
 
 server.register(fastifyFormbody);
 
