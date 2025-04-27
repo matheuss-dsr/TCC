@@ -1,12 +1,13 @@
 import { sql } from "./db.js"
 export class DatabasePostgres {
+
     async curso_list(search) {
         let cursos;
 
         if (search) {
-            cursos = await sql`SELECT * FROM cursos WHERE title ILIKE ${'%' + search + '%'}`;
+            cursos = await sql`SELECT * FROM cursos WHERE title ILIKE ${'%' + search + '%'} AND ativo = true`;
         } else {
-            cursos = await sql`SELECT * FROM cursos`;
+            cursos = await sql`SELECT * FROM cursos WHERE ativo = true`;
         }
 
         return cursos;
@@ -28,7 +29,6 @@ export class DatabasePostgres {
     }
 
     async curso_delete(curso_id) {
-
-        await sql`delete from cursos WHERE curso_id = ${curso_id}`
+        await sql`UPDATE cursos SET ativo = false WHERE curso_id = ${curso_id}`;
     }
 }

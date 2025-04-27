@@ -3,8 +3,11 @@ import fastifyView from '@fastify/view'
 import ejs from 'ejs'
 import path from 'path'
 import { DatabasePostgres } from './database_postgres.js'
+import fastifyFormbody from '@fastify/formbody';
 
-const server = fastify() // 👈 Criando o servidor antes de tudo
+const server = fastify() //
+
+server.register(fastifyFormbody);
 
 // Registrando o EJS
 server.register(fastifyView, {
@@ -21,6 +24,12 @@ server.get('/', async (request, reply) => {
     const cursos = await database.curso_list(search)
     return reply.view('index.ejs', { cursos, search })
 })
+
+server.get('/cursos', async (request, reply) => {
+    const search = request.query.search;
+    const cursos = await database.curso_list(search);
+    return reply.view('index.ejs', { cursos, search });
+});
 
 // Rota GET para o formulário de criação
 server.get('/cursos/novo', async (request, reply) => {

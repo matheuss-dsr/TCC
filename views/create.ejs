@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head><title>Novo Curso</title></head>
+<head>
+    <title>Criar Curso</title>
+</head>
 <body>
     <h1>Criar Curso</h1>
-    <form action="/cursos" method="post">
-        <input type="text" name="title" placeholder="Título" required /><br />
-        <input type="text" name="description" placeholder="Descrição" required /><br />
-        <input type="text" name="professor" placeholder="Professor" required /><br />
-        <input type="number" name="duration" placeholder="Duração (h)" required /><br />
-        <button type="submit">Salvar</button>
+    <form method="POST" action="/cursos">
+        <input type="text" name="title" placeholder="Título" required>
+        <textarea name="description" placeholder="Descrição" required></textarea>
+        <input type="text" name="professor" placeholder="Professor" required>
+        <input type="number" name="duration" placeholder="Duração (horas)" required>
+        <button type="submit">Criar</button>
     </form>
 </body>
 </html>
