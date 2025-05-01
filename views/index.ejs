@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Lista de Cursos</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/styles.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
 </head>
+
 <body>
     <h1>Lista de Cursos</h1>
     <form method="GET" action="/">
-        <input type="text" name="search" placeholder="Buscar cursos" value="<%= search %>">
-        <button type="submit">Buscar</button>
+        <div class="pesquisa">
+            <input type="text" name="search" placeholder="Buscar cursos" value="<%= search %>" class="">
+            <button type="submit">Buscar</button>
+        </div>
     </form>
     <a href="/cursos/novo">Criar Novo Curso</a>
     <ul>
-        <% cursos.forEach(curso => { %>
+        <% cursos.forEach(curso=> { %>
             <li>
-                <strong><%= curso.title %></strong> - <%= curso.description %>
-                <a href="/cursos/<%= curso.curso_id %>/editar">Editar</a>
-                <form method="POST" action="/cursos/<%= curso.curso_id %>/delete" style="display:inline;">
-                    <button type="submit">Deletar</button>
-                </form>
+                <strong>
+                    <%= curso.title %>
+                </strong> - <%= curso.description %>
+                    <a href="/cursos/<%= curso.curso_id %>/editar" class="button is-link">Editar</a>
+                    <form method="POST" action="/cursos/<%= curso.curso_id %>/delete" style="display:inline;">
+                        <button type="submit" class="button is-danger">Deletar</button>
+                    </form>
             </li>
-        <% }) %>
+            <% }) %>
     </ul>
 </body>
 </html>
