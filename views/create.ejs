@@ -4,21 +4,52 @@
     <title>Criar Curso</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/static/styles.css" />
+    <!-- Importando Bulma CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
   </head>
   <body>
-    <h1>Criar Curso</h1>
-    <form method="POST" action="/cursos">
-      <input type="text" name="title" placeholder="Título" required />
-      <textarea name="description" placeholder="Descrição" required></textarea>
-      <input type="text" name="professor" placeholder="Professor" required />
-      <input
-        type="number"
-        name="duration"
-        placeholder="Duração (horas)"
-        required
-      />
-      <button type="submit">Criar</button>
-    </form>
+    <section class="section">
+      <div class="container">
+        <h1 class="title has-text-centered">Criar Curso</h1>
+        <form method="POST" action="/cursos">
+          <div class="field">
+            <label class="label">Título</label>
+            <div class="control">
+              <input class="input" type="text" name="title" placeholder="Título" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Descrição</label>
+            <div class="control">
+              <textarea class="textarea" name="description" placeholder="Descrição" required></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Professor</label>
+            <div class="control">
+              <input class="input" type="text" name="professor" placeholder="Professor" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Duração (horas)</label>
+            <div class="control">
+              <input class="input" type="number" name="duration" placeholder="Duração (horas)" required />
+            </div>
+          </div>
+
+          <div class="field is-grouped is-justify-content-center">
+            <div class="control">
+              <button class="button is-primary" type="submit">Criar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
   </body>
 </html>
